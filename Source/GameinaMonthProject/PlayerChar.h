@@ -47,5 +47,7 @@ public:
 	float WalkingSpeed;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
 	float SprintSpeed;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
+	bool bInvertControls;
 
 };

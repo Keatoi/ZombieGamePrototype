@@ -44,31 +44,31 @@ void AFPSController::SetupInputComponent()
 }
 void AFPSController::CallMove(const FInputActionValue& Value)
 {
-	UE_LOG(LogTemp,Warning,TEXT("Move Called"));
+	//UE_LOG(LogTemp,Warning,TEXT("Move Called"));
 	if(PlayerPawn) PlayerPawn->Move(Value);
 }
 
 void AFPSController::CallLook(const FInputActionValue& Value)
 {
-	UE_LOG(LogTemp,Warning,TEXT("Look Called"));
+	//UE_LOG(LogTemp,Warning,TEXT("Look Called"));
 	if(PlayerPawn) PlayerPawn->Look(Value);
 }
 
 void AFPSController::CallShoot(const FInputActionValue& Value)
 {
-	UE_LOG(LogTemp,Warning,TEXT("Shoot Called"));
+	//UE_LOG(LogTemp,Warning,TEXT("Shoot Called"));
 	if(PlayerPawn) PlayerPawn->Shoot(Value);
 }
 
 void AFPSController::CallJump()
 {
-	UE_LOG(LogTemp,Warning,TEXT("Jump Called"));
+	//UE_LOG(LogTemp,Warning,TEXT("Jump Called"));
 	if(PlayerPawn) PlayerPawn->bPressedJump = true;
 }
 
 void AFPSController::CallStopJump()
 {
-	UE_LOG(LogTemp,Warning,TEXT("Stop Jump Called"));
+	//UE_LOG(LogTemp,Warning,TEXT("Stop Jump Called"));
 	if(PlayerPawn) PlayerPawn->bPressedJump = false;
 	
 }
