@@ -16,7 +16,7 @@ APlayerChar::APlayerChar()
 	FPSCam = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	check(FPSCam != nullptr);
 	FPSCam->SetRelativeLocation(FVector(0.f,0.f,50.f + BaseEyeHeight));
-	FPSCam->SetupAttachment(GetCapsuleComponent());
+	FPSCam->SetupAttachment(GetMesh(),FName("Head"));
 	//Create FPS Arms mesh and set to only be seen by its player
 	FPSArms_SK = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FPS ARMS"));
 	check(FPSArms_SK != nullptr);
