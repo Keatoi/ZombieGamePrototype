@@ -5,14 +5,26 @@
 
 #include "InputActionValue.h"
 #include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"
 
 // Sets default values
 APlayerChar::APlayerChar()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	//Spawn camera at eye height
 	FPSCam = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-	FPSCam->SetupAttachment(GetMesh());
+	check(FPSCam != nullptr);
+	FPSCam->SetRelativeLocation(FVector(0.f,0.f,50.f + BaseEyeHeight));
+	FPSCam->SetupAttachment(GetCapsuleComponent());
+	//Create FPS Arms mesh and set to only be seen by its player
+	FPSArms_SK = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FPS ARMS"));
+	check(FPSArms_SK != nullptr);
+	FPSArms_SK->SetOnlyOwnerSee(true);
+	FPSArms_SK->SetupAttachment(FPSCam);
+	//Disable Shadows
+	FPSArms_SK->bCastDynamicShadow = false;
+	FPSArms_SK->CastShadow = false;
 }
 
 // Called when the game starts or when spawned

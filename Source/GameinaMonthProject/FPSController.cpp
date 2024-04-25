@@ -15,9 +15,11 @@ void AFPSController::BeginPlay()
 {
 	Super::BeginPlay();
 	PlayerPawn = Cast<APlayerChar>(GetPawn());
-	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	UE_LOG(LogTemp,Warning,TEXT("PC activated"));
+	/* Add input mapping context */
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(this->GetLocalPlayer()))
 	{
-		Subsystem->AddMappingContext(IMC, 0);
+		Subsystem->AddMappingContext(DefaultMappingContext, 0);
 	}
 }
 
@@ -61,12 +63,13 @@ void AFPSController::CallShoot(const FInputActionValue& Value)
 void AFPSController::CallJump()
 {
 	UE_LOG(LogTemp,Warning,TEXT("Jump Called"));
-	if(PlayerPawn) PlayerPawn->Jump();
+	if(PlayerPawn) PlayerPawn->bPressedJump = true;
 }
 
 void AFPSController::CallStopJump()
 {
 	UE_LOG(LogTemp,Warning,TEXT("Stop Jump Called"));
+	if(PlayerPawn) PlayerPawn->bPressedJump = false;
 	
 }
 

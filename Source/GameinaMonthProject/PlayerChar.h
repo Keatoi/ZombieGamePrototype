@@ -17,6 +17,8 @@ public:
 	//Components
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "UI")
 	class UCameraComponent* FPSCam;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Mesh")
+	USkeletalMeshComponent* FPSArms_SK;
 
 protected:
 	// Called when the game starts or when spawned
@@ -37,6 +39,13 @@ public:
 	void Look(const FInputActionValue& Value);
 	UFUNCTION()
 	void Shoot(const FInputActionValue& Value);
-	
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
+	float Health = 100.f;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
+	float Dosh = 0.f;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
+	float WalkingSpeed;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
+	float SprintSpeed;
 
 };
