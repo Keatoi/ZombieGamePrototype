@@ -48,6 +48,10 @@ public:
 	UFUNCTION()
 	void CallStopJump();
 	class APlayerChar* PlayerPawn;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapons")
+	class AAWeapon* PrimaryWeapon;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapons")
+	class AAWeapon* SecondaryWeapon;
 protected:
 	virtual void SetupInputComponent() override;
 	// Called to bind functionality to input
