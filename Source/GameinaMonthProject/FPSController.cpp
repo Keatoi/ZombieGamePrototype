@@ -35,9 +35,12 @@ void AFPSController::SetupInputComponent()
 		UE_LOG(LogTemp,Warning,TEXT("Input Called"));
 		Input->BindAction(InputMove,ETriggerEvent::Triggered,this,&AFPSController::CallMove);
 		Input->BindAction(InputLook,ETriggerEvent::Triggered,this,&AFPSController::CallLook);
-		Input->BindAction(InputShoot,ETriggerEvent::Triggered,this,&AFPSController::CallShoot);
+		Input->BindAction(InputShoot,ETriggerEvent::Started,this,&AFPSController::CallShoot);
 		Input->BindAction(InputJump,ETriggerEvent::Started,this,&AFPSController::CallJump);
 		Input->BindAction(InputJump,ETriggerEvent::Completed,this,&AFPSController::CallStopJump);
+		Input->BindAction(InputInteract,ETriggerEvent::Started,this,&AFPSController::CallInteract);
+		Input->BindAction(InputADS,ETriggerEvent::Started,this,&AFPSController::CallADS);
+		Input->BindAction(InputHeal,ETriggerEvent::Started,this,&AFPSController::CallHeal);
 			
 		
 	}
@@ -58,6 +61,21 @@ void AFPSController::CallShoot(const FInputActionValue& Value)
 {
 	//UE_LOG(LogTemp,Warning,TEXT("Shoot Called"));
 	if(PlayerPawn) PlayerPawn->Shoot(Value);
+}
+
+void AFPSController::CallInteract(const FInputActionValue& Value)
+{
+	if(PlayerPawn) PlayerPawn->Interact(Value);
+}
+
+void AFPSController::CallADS(const FInputActionValue& Value)
+{
+	if(PlayerPawn) PlayerPawn->ADS(Value);
+}
+
+void AFPSController::CallHeal(const FInputActionValue& Value)
+{
+	if(PlayerPawn) PlayerPawn->Heal(Value);
 }
 
 void AFPSController::CallJump()

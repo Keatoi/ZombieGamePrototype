@@ -38,6 +38,8 @@ protected:
 	UInputAction* InputReload;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
 	UInputAction* InputInteract;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
+	UInputAction* InputHeal;
 	
 
 public:	
@@ -49,6 +51,12 @@ public:
 	void CallLook(const FInputActionValue& Value);
 	UFUNCTION()
 	void CallShoot(const FInputActionValue& Value);
+	UFUNCTION()
+	void CallInteract(const FInputActionValue& Value);
+	UFUNCTION()
+	void CallADS(const FInputActionValue& Value);
+	UFUNCTION()
+	void CallHeal(const FInputActionValue& Value);
 	UFUNCTION()
 	void CallJump();
 	UFUNCTION()

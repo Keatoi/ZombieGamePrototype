@@ -4,6 +4,7 @@
 #include "PlayerChar.h"
 
 #include "InputActionValue.h"
+#include "ShopActor.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 
@@ -15,8 +16,8 @@ APlayerChar::APlayerChar()
 	//Spawn camera at eye height
 	FPSCam = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	check(FPSCam != nullptr);
-	FPSCam->SetRelativeLocation(FVector(0.f,0.f,BaseEyeHeight));
-	FPSCam->SetupAttachment(GetCapsuleComponent());
+	FPSCam->SetRelativeLocation(FVector(0.f,0.f,0.f));
+	FPSCam->SetupAttachment(GetMesh(),"head");
 	//Create FPS Arms mesh and set to only be seen by its player
 	FPSArms_SK = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FPS ARMS"));
 	check(FPSArms_SK != nullptr);
@@ -32,6 +33,7 @@ APlayerChar::APlayerChar()
 void APlayerChar::BeginPlay()
 {
 	Super::BeginPlay();
+	
 	
 }
 
@@ -94,6 +96,46 @@ void APlayerChar::Look(const FInputActionValue& Value)
 void APlayerChar::Shoot(const FInputActionValue& Value)
 {
 	UE_LOG(LogTemp,Warning,TEXT("Shoot"));
+}
+
+void APlayerChar::Interact(const FInputActionValue& Value)
+{
+	UE_LOG(LogTemp,Warning,TEXT("Interact"));
+	OnInteract.Broadcast(this);
+}
+
+void APlayerChar::ADS(const FInputActionValue& Value)
+{
+	UE_LOG(LogTemp,Warning,TEXT("ADS"));
+}
+
+void APlayerChar::Heal(const FInputActionValue& Value)
+{
+	UE_LOG(LogTemp,Warning,TEXT("Heal"));
+	if(MedKits > 0)
+	{
+		MedKits --;
+		GetWorld()->GetTimerManager().SetTimer(TerminateHandle,this,&APlayerChar::HealTerminate,6.f,false);
+		GetWorld()->GetTimerManager().SetTimer(HealHandle,this, &APlayerChar::HealImplementation,1.f,true);
+	}
+}
+
+void APlayerChar::HealImplementation()
+{
+	UE_LOG(LogTemp,Warning,TEXT("HealImp"));
+	if(Health <= 100.f)
+	{
+		float TempHealth = Health;
+		TempHealth += HealAmount;
+		
+		Health = FMath::Clamp(TempHealth,0.f,100.f);
+	}
+}
+
+void APlayerChar::HealTerminate()
+{
+	GetWorld()->GetTimerManager().ClearTimer(HealHandle);
+	GetWorld()->GetTimerManager().ClearTimer(TerminateHandle);
 }
 
 

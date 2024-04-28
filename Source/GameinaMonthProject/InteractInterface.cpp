@@ -4,7 +4,7 @@
 #include "InteractInterface.h"
 
 // Add default functionality here for any IInteractInterface functions that are not pure virtual.
-void IInteractInterface::Interact(ACharacter* OwningChar)
+void IInteractInterface::InteractFunc(ACharacter* OwningChar)
 {
 	
 }

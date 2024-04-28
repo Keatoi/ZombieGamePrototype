@@ -3,11 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InteractInterface.h"
 #include "GameFramework/Character.h"
 #include "PlayerChar.generated.h"
-
+UDELEGATE(BlueprintAuthorityOnly)
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FInteractDelegate,ACharacter*,PlayerActor);
 UCLASS()
-class GAMEINAMONTHPROJECT_API APlayerChar : public ACharacter
+class GAMEINAMONTHPROJECT_API APlayerChar : public ACharacter, public IInteractInterface
 {
 	GENERATED_BODY()
 
@@ -39,8 +41,28 @@ public:
 	void Look(const FInputActionValue& Value);
 	UFUNCTION()
 	void Shoot(const FInputActionValue& Value);
+	UFUNCTION()
+	void Interact(const FInputActionValue& Value);
+	UFUNCTION()
+	void ADS(const FInputActionValue& Value);
+	UFUNCTION()
+	void Heal(const FInputActionValue& Value);
+	UFUNCTION()
+	void HealImplementation();
+	UFUNCTION()
+	void HealTerminate();
+	UPROPERTY()
+	FInteractDelegate OnInteract;
+	UPROPERTY()
+	FTimerHandle HealHandle;
+	UPROPERTY()
+	FTimerHandle TerminateHandle;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
 	float Health = 100.f;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
+	float HealAmount = 10.f;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
+	float Armour = 100.f;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
 	float Dosh = 0.f;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
@@ -49,5 +71,11 @@ public:
 	float SprintSpeed;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
 	bool bInvertControls;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
+	float HPS = 3.f;//Health to heal per second
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
+	int MedKits = 1;
+
+	
 
 };
