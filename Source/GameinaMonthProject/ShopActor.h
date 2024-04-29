@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FPSController.h"
 #include "PlayerChar.h"
 #include "Blueprint/UserWidget.h"
 #include "GameFramework/Actor.h"
@@ -29,6 +30,8 @@ public:
 	APlayerChar* OverlappedPlayer;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	APlayerChar* PlayerRef;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	AFPSController* PC;
 	UFUNCTION()
 	void OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 	UFUNCTION()

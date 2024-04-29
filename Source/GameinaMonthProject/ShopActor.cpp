@@ -57,6 +57,11 @@ void AShopActor::OnBoxEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* Ot
 			if(InteractUI) InteractUI->RemoveFromParent();
 			UE_LOG(LogTemp,Warning,TEXT("ClosingShop"));
 			ShopUI->RemoveFromParent();
+			if(PC)
+			{
+				PC->SetInputMode(FInputModeGameOnly());
+				PC->SetShowMouseCursor(false);
+			}
 			bShopOpen = false;
 		}
 	}
@@ -71,7 +76,12 @@ void AShopActor::OnInteract(ACharacter* PlayerActor)
 		{
 			UE_LOG(LogTemp,Warning,TEXT("OpeningShop"));
 			InteractUI->RemoveFromParent();
-			ShopUI->AddToViewport();
+			ShopUI->AddToViewport(1);
+			if(PC)
+			{
+				PC->SetInputMode(FInputModeGameAndUI());
+				PC->SetShowMouseCursor(true);
+			}
 			bShopOpen = true;
 		}
 		else if(ShopUI && bShopOpen)
@@ -79,6 +89,11 @@ void AShopActor::OnInteract(ACharacter* PlayerActor)
 			UE_LOG(LogTemp,Warning,TEXT("ClosingShop"));
 			ShopUI->RemoveFromParent();
 			InteractUI->AddToViewport();
+			if(PC)
+			{
+				PC->SetInputMode(FInputModeGameOnly());
+				PC->SetShowMouseCursor(false);
+			}
 			bShopOpen = false;
 		}
 	}
@@ -103,6 +118,11 @@ void AShopActor::BeginPlay()
 	if(PlayerRef)
 	{
 		PlayerRef->OnInteract.AddDynamic(this,&AShopActor::OnInteract);
+	}
+	PC = Cast<AFPSController>(UGameplayStatics::GetPlayerController(GetWorld(),0));
+	if(PC)
+	{
+		UE_LOG(LogTemp,Warning,TEXT("Shop PC loaded"));
 	}
 	//User Interface Setup
 
