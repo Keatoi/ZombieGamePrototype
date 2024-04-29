@@ -24,13 +24,17 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	bool bPlayerClose;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	bool bShopOpen;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	APlayerChar* OverlappedPlayer;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	APlayerChar* PlayerRef;
 	UFUNCTION()
 	void OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 	UFUNCTION()
 	void OnBoxEndOverlap(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 	UFUNCTION()
-	void OnInteract();
+	void OnInteract(ACharacter* PlayerActor);
 	
 
 protected:

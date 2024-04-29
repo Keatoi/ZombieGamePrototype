@@ -25,6 +25,7 @@ AShopActor::AShopActor()
 	ShopBox->OnComponentEndOverlap.AddDynamic(this,&AShopActor::OnBoxEndOverlap);
 	
 	bPlayerClose = false;
+	bShopOpen = false;
 	
 }
 
@@ -54,12 +55,33 @@ void AShopActor::OnBoxEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* Ot
 		{
 			UE_LOG(LogTemp,Warning,TEXT("Player null"));
 			if(InteractUI) InteractUI->RemoveFromParent();
+			UE_LOG(LogTemp,Warning,TEXT("ClosingShop"));
+			ShopUI->RemoveFromParent();
+			bShopOpen = false;
 		}
 	}
 }
 
-void AShopActor::OnInteract()
+void AShopActor::OnInteract(ACharacter* PlayerActor)
 {
+	if(OverlappedPlayer != nullptr)
+	{
+		
+		if(ShopUI && !bShopOpen)
+		{
+			UE_LOG(LogTemp,Warning,TEXT("OpeningShop"));
+			InteractUI->RemoveFromParent();
+			ShopUI->AddToViewport();
+			bShopOpen = true;
+		}
+		else if(ShopUI && bShopOpen)
+		{
+			UE_LOG(LogTemp,Warning,TEXT("ClosingShop"));
+			ShopUI->RemoveFromParent();
+			InteractUI->AddToViewport();
+			bShopOpen = false;
+		}
+	}
 }
 
 // Called when the game starts or when spawned
@@ -70,6 +92,17 @@ void AShopActor::BeginPlay()
 	{
 		UE_LOG(LogTemp,Warning,TEXT("Interact UI class loaded"));
 		InteractUI = CreateWidget(GetWorld(),InteractUIClass);
+	}
+	if(ShopUIClass)
+	{
+		UE_LOG(LogTemp,Warning,TEXT("Shop UI class loaded"));
+		ShopUI = CreateWidget(GetWorld(),ShopUIClass);
+	}
+	ACharacter* FoundPlayer = UGameplayStatics::GetPlayerCharacter(GetWorld(),0);
+	PlayerRef = Cast<APlayerChar>(FoundPlayer);
+	if(PlayerRef)
+	{
+		PlayerRef->OnInteract.AddDynamic(this,&AShopActor::OnInteract);
 	}
 	//User Interface Setup
 
