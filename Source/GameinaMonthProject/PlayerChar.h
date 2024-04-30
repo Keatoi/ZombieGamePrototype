@@ -3,11 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AWeapon.h"
 #include "InteractInterface.h"
 #include "GameFramework/Character.h"
 #include "PlayerChar.generated.h"
 UDELEGATE(BlueprintAuthorityOnly)
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FInteractDelegate,ACharacter*,PlayerActor);
+UENUM(	BlueprintType)
+enum EEquippedWeapon
+{
+	EPrimary,
+	ESecondary
+};
 UCLASS()
 class GAMEINAMONTHPROJECT_API APlayerChar : public ACharacter, public IInteractInterface
 {
@@ -20,7 +27,7 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "UI")
 	class UCameraComponent* FPSCam;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Mesh")
-	USkeletalMeshComponent* FPSArms_SK;
+	USkeletalMeshComponent* FPSArms;
 
 protected:
 	// Called when the game starts or when spawned
@@ -51,6 +58,8 @@ public:
 	void HealImplementation();
 	UFUNCTION()
 	void HealTerminate();
+	UFUNCTION(BlueprintCallable)
+	void WeaponPickup( AAWeapon* Pickup);
 	UPROPERTY()
 	FInteractDelegate OnInteract;
 	UPROPERTY()
@@ -75,7 +84,12 @@ public:
 	float HPS = 3.f;//Health to heal per second
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
 	int MedKits = 1;
-
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
+	bool bisADS = false;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
+	TArray<AAWeapon*> EquippedWeapons;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
+	AAWeapon* PrimaryWeapon;
 	
 
 };

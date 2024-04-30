@@ -35,6 +35,11 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
+	UUserWidget* InteractUI;
+
+	UPROPERTY(EditAnywhere, Category = "UI")
+	TSubclassOf<UUserWidget> InteractUIClass;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
 	float BaseDamage = 50.f;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")

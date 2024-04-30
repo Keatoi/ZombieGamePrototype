@@ -36,7 +36,7 @@ void AAWeapon::Fire()
 	{
 		if(SB_Fire)UGameplayStatics::PlaySoundAtLocation(this,SB_Fire,GetActorLocation());
 		FHitResult Hit;
-		FVector TraceStart = GetActorLocation();
+		FVector TraceStart = GunSK->GetSocketLocation(FName("Muzzle"));
 		FVector TraceEnd = GetActorLocation() + GetActorForwardVector() * Range;
 		FCollisionQueryParams QueryParams;
 		QueryParams.AddIgnoredActor(this);

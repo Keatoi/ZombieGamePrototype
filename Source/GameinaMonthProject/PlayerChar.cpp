@@ -17,15 +17,15 @@ APlayerChar::APlayerChar()
 	FPSCam = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	check(FPSCam != nullptr);
 	FPSCam->SetRelativeLocation(FVector(0.f,0.f,0.f));
-	FPSCam->SetupAttachment(GetMesh(),"head");
+	FPSCam->SetupAttachment(GetCapsuleComponent());
 	//Create FPS Arms mesh and set to only be seen by its player
-	FPSArms_SK = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FPS ARMS"));
-	check(FPSArms_SK != nullptr);
-	FPSArms_SK->SetOnlyOwnerSee(true);
-	FPSArms_SK->SetupAttachment(FPSCam);
+	FPSArms = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FPS ARMS"));
+	check(FPSArms != nullptr);
+	FPSArms->SetOnlyOwnerSee(true);
+	FPSArms->SetupAttachment(FPSCam);
 	//Disable Shadows
-	FPSArms_SK->bCastDynamicShadow = false;
-	FPSArms_SK->CastShadow = false;
+	FPSArms->bCastDynamicShadow = false;
+	FPSArms->CastShadow = false;
 	bInvertControls = false;
 }
 
@@ -33,8 +33,7 @@ APlayerChar::APlayerChar()
 void APlayerChar::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	
+
 }
 
 // Called every frame
@@ -96,6 +95,11 @@ void APlayerChar::Look(const FInputActionValue& Value)
 void APlayerChar::Shoot(const FInputActionValue& Value)
 {
 	UE_LOG(LogTemp,Warning,TEXT("Shoot"));
+	if(PrimaryWeapon)
+	{
+		PrimaryWeapon->bDebug = true;
+		PrimaryWeapon->Fire();
+	}
 }
 
 void APlayerChar::Interact(const FInputActionValue& Value)
@@ -107,6 +111,19 @@ void APlayerChar::Interact(const FInputActionValue& Value)
 void APlayerChar::ADS(const FInputActionValue& Value)
 {
 	UE_LOG(LogTemp,Warning,TEXT("ADS"));
+	if(bisADS)
+	{
+		FVector ArmPos = {-20.f,0.f,-145.f};
+		FPSArms->SetRelativeLocation(ArmPos);
+		bisADS = false;
+	}
+	else
+	{
+		bisADS = true;
+		FVector ArmPos = {-21.f,-15.f,-134.f};
+		FPSArms->SetRelativeLocation(ArmPos);
+		
+	}
 }
 
 void APlayerChar::Heal(const FInputActionValue& Value)
@@ -136,6 +153,11 @@ void APlayerChar::HealTerminate()
 {
 	GetWorld()->GetTimerManager().ClearTimer(HealHandle);
 	GetWorld()->GetTimerManager().ClearTimer(TerminateHandle);
+}
+
+void APlayerChar::WeaponPickup(AAWeapon* Pickup)
+{
+	
 }
 
 
