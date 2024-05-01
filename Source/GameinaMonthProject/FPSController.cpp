@@ -94,6 +94,7 @@ void AFPSController::CallStopJump()
 
 void AFPSController::CallReload()
 {
+	UE_LOG(LogTemp, Log, TEXT("Call Reload"));
 	if(PlayerPawn && PlayerPawn->PrimaryWeapon)
 	{
 		PlayerPawn->PrimaryWeapon->ReloadStart();

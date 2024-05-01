@@ -26,6 +26,8 @@ APlayerChar::APlayerChar()
 	//Disable Shadows
 	FPSArms->bCastDynamicShadow = false;
 	FPSArms->CastShadow = false;
+	FVector ArmPos = {-20.f,0.f,-145.f};
+	FPSArms->SetRelativeLocation(ArmPos);
 	bInvertControls = false;
 }
 
@@ -55,23 +57,25 @@ void APlayerChar::Move(const FInputActionValue& Value)
 	//UE_LOG(LogTemp,Warning,TEXT("Move"));
 	const FVector2D MoveValue = Value.Get<FVector2D>();
 	const FRotator MovementRotation(0, Controller->GetControlRotation().Yaw, 0);
-	UE_LOG(LogTemp,Warning,TEXT("Move Value %f"),Value.Get<FVector2D>().X);
-	UE_LOG(LogTemp,Warning,TEXT("Move Value Y %f"),Value.Get<FVector2D>().Y);
+	
+	
 	// Forward/Backward direction
 	if (MoveValue.Y != 0.f)
 	{
+		//UE_LOG(LogTemp,Warning,TEXT("Move Value Y %f"),Value.Get<FVector2D>().Y);`
 		// Get forward vector
-		const FVector Direction = MovementRotation.RotateVector(FVector::ForwardVector);
- 
+		const FVector Direction = GetActorForwardVector();
+		UE_LOG(LogTemp,Warning,TEXT("Direction %s"),*Direction.ToString());
 		AddMovementInput(Direction, MoveValue.Y);
 	}
  
 	// Right/Left direction
 	if (MoveValue.X != 0.f)
 	{
+		UE_LOG(LogTemp,Warning,TEXT("Move Value %f"),Value.Get<FVector2D>().X);
 		// Get right vector
-		const FVector Direction = MovementRotation.RotateVector(FVector::RightVector);
- 
+		const FVector Direction = GetActorRightVector();
+		UE_LOG(LogTemp,Warning,TEXT("Direction %s"),*Direction.ToString());
 		AddMovementInput(Direction, MoveValue.X);
 	}
 }

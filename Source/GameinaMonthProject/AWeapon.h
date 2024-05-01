@@ -58,6 +58,8 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
 	float ReloadTime = 3.f;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
+	float RemainingTime;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
 	int MagazineAmmo = 30;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
 	int MagazineAmmoMax = 30;//Max amount of ammo the gun can have in a mag
@@ -66,9 +68,12 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
 	bool bIsAuto = false;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
+	bool bCanFire = true;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
 	bool bDebug = true;
 	UPROPERTY(EditAnywhere, Category="Collision")
 	TEnumAsByte<ECollisionChannel> TraceChannelProperty = ECC_Pawn;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
 	FTimerHandle ReloadTimer;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	TEnumAsByte<EEquippedWeapon> WeaponType;

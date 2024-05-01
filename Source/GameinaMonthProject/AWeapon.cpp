@@ -24,8 +24,10 @@ void AAWeapon::BeginPlay()
 
 void AAWeapon::ReloadStart()
 {
+	UE_LOG(LogTemp, Log, TEXT("ReloadStart"));
 	if(MagazineAmmo != MagazineAmmoMax)
 	{
+		bCanFire = false;
 		if(SB_Reload) UGameplayStatics::PlaySoundAtLocation(this,SB_Reload,GetActorLocation());
 		GetWorld()->GetTimerManager().SetTimer(ReloadTimer, this, &AAWeapon::ReloadEnd, ReloadTime, false); 
 	}
@@ -34,7 +36,7 @@ void AAWeapon::ReloadStart()
 
 void AAWeapon::Fire()
 {
-	if(MagazineAmmo > 0)
+	if(MagazineAmmo > 0 && bCanFire)
 	{
 		if(SB_Fire)UGameplayStatics::PlaySoundAtLocation(this,SB_Fire,GetActorLocation());
 		FHitResult Hit;
@@ -57,6 +59,7 @@ void AAWeapon::Fire()
 		{
 			UE_LOG(LogTemp, Log, TEXT("No Actors were hit"));
 		}
+		MagazineAmmo --;
 	}
 	else if(SB_Empty)UGameplayStatics::PlaySoundAtLocation(this,SB_Empty,GetActorLocation());
 }
@@ -71,6 +74,7 @@ void AAWeapon::ReloadEnd()
 		if(AmmoReserve >= MagazineAmmoMax) MagazineAmmo = MagazineAmmoMax;
 		else MagazineAmmo = AmmoReserve;
 		if(AmmoReserve < 0 )AmmoReserve = 0;
+		bCanFire = true;
 	}
 	
 }
@@ -79,6 +83,6 @@ void AAWeapon::ReloadEnd()
 void AAWeapon::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	RemainingTime = GetWorld()->GetTimerManager().GetTimerElapsed(ReloadTimer);
 }
 
