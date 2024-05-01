@@ -158,7 +158,44 @@ void APlayerChar::HealTerminate()
 
 void APlayerChar::WeaponPickup(AAWeapon* Pickup)
 {
-	
+	AAWeapon* NewWeap = Cast<AAWeapon>(Pickup);
+	if(NewWeap)
+	{
+		if(NewWeap->WeaponType == EPrimary && CurrentWeapon != PrimaryWeapon)
+		{
+			if(PrimaryWeapon)
+			{
+				PrimaryWeapon->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+				PrimaryWeapon->Destroy();
+				PrimaryWeapon = nullptr;
+			}
+			if(CurrentWeapon == BackupWeapon)
+			{
+				BackupWeapon->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+				BackupWeapon->AttachToComponent(FPSArms,FAttachmentTransformRules::KeepWorldTransform,FName("BackupPoint"));
+			}
+			PrimaryWeapon = NewWeap;
+			CurrentWeapon = PrimaryWeapon;
+			CurrentWeapon->AttachToComponent(FPSArms,FAttachmentTransformRules::KeepWorldTransform,FName("GripPoint"));
+		}
+		else if(NewWeap->WeaponType == ESecondary && CurrentWeapon != BackupWeapon)
+		{
+			if(BackupWeapon)
+			{
+				BackupWeapon->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+				BackupWeapon->Destroy();
+				BackupWeapon = nullptr;
+			}
+			if(CurrentWeapon == PrimaryWeapon)
+			{
+				PrimaryWeapon->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+				PrimaryWeapon->AttachToComponent(FPSArms,FAttachmentTransformRules::KeepWorldTransform,FName("BackupPoint"));
+			}
+			BackupWeapon = NewWeap;
+			CurrentWeapon = BackupWeapon;
+			CurrentWeapon->AttachToComponent(FPSArms,FAttachmentTransformRules::KeepWorldTransform,FName("GripPoint"));
+		}
+	}
 }
 
 

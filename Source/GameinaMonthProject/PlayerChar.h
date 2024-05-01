@@ -9,12 +9,7 @@
 #include "PlayerChar.generated.h"
 UDELEGATE(BlueprintAuthorityOnly)
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FInteractDelegate,ACharacter*,PlayerActor);
-UENUM(	BlueprintType)
-enum EEquippedWeapon
-{
-	EPrimary,
-	ESecondary
-};
+
 UCLASS()
 class GAMEINAMONTHPROJECT_API APlayerChar : public ACharacter, public IInteractInterface
 {
@@ -87,9 +82,11 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
 	bool bisADS = false;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
-	TArray<AAWeapon*> EquippedWeapons;
+	AAWeapon* CurrentWeapon;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
 	AAWeapon* PrimaryWeapon;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
+	AAWeapon* BackupWeapon;
 	
 
 };

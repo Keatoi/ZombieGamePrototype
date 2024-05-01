@@ -5,7 +5,12 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "AWeapon.generated.h"
-
+UENUM(	BlueprintType)
+enum EEquippedWeapon
+{
+	EPrimary,
+	ESecondary
+};
 UCLASS()
 class GAMEINAMONTHPROJECT_API AAWeapon : public AActor
 {
@@ -45,6 +50,10 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
 	float BaseDamage = 50.f;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
+	FName WeaponName;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
+	float Price;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
 	float Range = 1250.f;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
 	float ReloadTime = 3.f;
@@ -61,5 +70,7 @@ public:
 	UPROPERTY(EditAnywhere, Category="Collision")
 	TEnumAsByte<ECollisionChannel> TraceChannelProperty = ECC_Pawn;
 	FTimerHandle ReloadTimer;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	TEnumAsByte<EEquippedWeapon> WeaponType;
 
 };
