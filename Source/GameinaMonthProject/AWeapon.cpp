@@ -3,6 +3,8 @@
 
 #include "AWeapon.h"
 
+#include "InputBehavior.h"
+#include "Engine/DamageEvents.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -45,6 +47,8 @@ void AAWeapon::Fire()
 		FCollisionQueryParams QueryParams;
 		QueryParams.AddIgnoredActor(this);
 		GetWorld()->LineTraceSingleByChannel(Hit,TraceStart,TraceEnd,TraceChannelProperty,QueryParams);
+		
+		
 		if(bDebug)
 		{
 			DrawDebugLine(GetWorld(), TraceStart, TraceEnd, Hit.bBlockingHit ? FColor::Blue : FColor::Red, false, 5.0f, 0, 10.0f);
@@ -54,6 +58,18 @@ void AAWeapon::Fire()
 		{
 			if(bDebug) UE_LOG(LogTemp, Log, TEXT("Trace hit actor: %s"), *Hit.GetActor()->GetName());
 			
+
+			if(Hit.BoneName == FName("head"))
+			{
+				if(bDebug) UE_LOG(LogTemp, Log, TEXT("Trace hit Bone: %s"), *Hit.BoneName.ToString());
+				FDamageEvent DamageEvent;
+				Hit.GetActor()->TakeDamage(150.f,DamageEvent,UGameplayStatics::GetPlayerController(GetWorld(),0),this);
+			}
+			else
+			{
+				FDamageEvent DamageEvent;
+				Hit.GetActor()->TakeDamage(50.f,DamageEvent,UGameplayStatics::GetPlayerController(GetWorld(),0),this);
+			}
 		}
 		else if (bDebug)
 		{
