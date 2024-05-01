@@ -16,6 +16,8 @@ public:
 	AAWeapon();
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	USkeletalMeshComponent* GunSK;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	UStaticMeshComponent* SightSM;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Sounds")
 	USoundBase* SB_Fire;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Sounds")

@@ -11,6 +11,8 @@ AAWeapon::AAWeapon()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	GunSK = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
+	SightSM = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Sight"));
+	SightSM->SetupAttachment(GunSK,FName("SightSocket"));
 }
 
 // Called when the game starts or when spawned

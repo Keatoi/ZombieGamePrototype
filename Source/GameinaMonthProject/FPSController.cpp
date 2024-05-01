@@ -41,6 +41,7 @@ void AFPSController::SetupInputComponent()
 		Input->BindAction(InputInteract,ETriggerEvent::Started,this,&AFPSController::CallInteract);
 		Input->BindAction(InputADS,ETriggerEvent::Started,this,&AFPSController::CallADS);
 		Input->BindAction(InputHeal,ETriggerEvent::Started,this,&AFPSController::CallHeal);
+		Input->BindAction(InputReload,ETriggerEvent::Started,this,&AFPSController::CallReload);
 			
 		
 	}
@@ -89,6 +90,14 @@ void AFPSController::CallStopJump()
 	//UE_LOG(LogTemp,Warning,TEXT("Stop Jump Called"));
 	if(PlayerPawn) PlayerPawn->bPressedJump = false;
 	
+}
+
+void AFPSController::CallReload()
+{
+	if(PlayerPawn && PlayerPawn->PrimaryWeapon)
+	{
+		PlayerPawn->PrimaryWeapon->ReloadStart();
+	}
 }
 
 

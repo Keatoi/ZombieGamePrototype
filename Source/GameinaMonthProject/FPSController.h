@@ -61,6 +61,8 @@ public:
 	void CallJump();
 	UFUNCTION()
 	void CallStopJump();
+	UFUNCTION()
+	void CallReload();
 	class APlayerChar* PlayerPawn;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapons")
 	class AAWeapon* PrimaryWeapon;

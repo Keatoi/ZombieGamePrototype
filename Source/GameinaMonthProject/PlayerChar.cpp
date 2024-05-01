@@ -55,7 +55,8 @@ void APlayerChar::Move(const FInputActionValue& Value)
 	//UE_LOG(LogTemp,Warning,TEXT("Move"));
 	const FVector2D MoveValue = Value.Get<FVector2D>();
 	const FRotator MovementRotation(0, Controller->GetControlRotation().Yaw, 0);
- 
+	UE_LOG(LogTemp,Warning,TEXT("Move Value %f"),Value.Get<FVector2D>().X);
+	UE_LOG(LogTemp,Warning,TEXT("Move Value Y %f"),Value.Get<FVector2D>().Y);
 	// Forward/Backward direction
 	if (MoveValue.Y != 0.f)
 	{
@@ -120,7 +121,7 @@ void APlayerChar::ADS(const FInputActionValue& Value)
 	else
 	{
 		bisADS = true;
-		FVector ArmPos = {-21.f,-15.f,-134.f};
+		FVector ArmPos = {-21.f,-15.f,-140.f};
 		FPSArms->SetRelativeLocation(ArmPos);
 		
 	}
