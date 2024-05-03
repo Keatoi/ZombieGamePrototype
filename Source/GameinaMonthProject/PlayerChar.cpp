@@ -119,13 +119,17 @@ void APlayerChar::ADS(const FInputActionValue& Value)
 	if(bisADS)
 	{
 		FVector ArmPos = {-20.f,0.f,-145.f};
+		FRotator ArmRot = {0.f,0.f,0.f};
+		FPSArms->SetRelativeRotation(ArmRot);
 		FPSArms->SetRelativeLocation(ArmPos);
 		bisADS = false;
 	}
 	else
 	{
 		bisADS = true;
-		FVector ArmPos = {-21.f,-15.f,-140.f};
+		FVector ArmPos = {-19.3f,-11.46f,-137.32f};
+		FRotator ArmRot = {0.f,0.f,-10.f};
+		FPSArms->SetRelativeRotation(ArmRot);
 		FPSArms->SetRelativeLocation(ArmPos);
 		
 	}
