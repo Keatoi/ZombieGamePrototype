@@ -115,9 +115,10 @@ void APlayerChar::Interact(const FInputActionValue& Value)
 
 void APlayerChar::ADS(const FInputActionValue& Value)
 {
-	UE_LOG(LogTemp,Warning,TEXT("ADS"));
+
 	if(bisADS)
 	{
+		UE_LOG(LogTemp,Warning,TEXT("not ADS"));
 		FVector ArmPos = {-20.f,0.f,-145.f};
 		FRotator ArmRot = {0.f,0.f,0.f};
 		FPSArms->SetRelativeRotation(ArmRot);
@@ -126,6 +127,7 @@ void APlayerChar::ADS(const FInputActionValue& Value)
 	}
 	else
 	{
+		UE_LOG(LogTemp,Warning,TEXT("ADS"));
 		bisADS = true;
 		FVector ArmPos = {-19.3f,-11.46f,-137.32f};
 		FRotator ArmRot = {0.f,0.f,-10.f};
@@ -138,7 +140,7 @@ void APlayerChar::ADS(const FInputActionValue& Value)
 void APlayerChar::Heal(const FInputActionValue& Value)
 {
 	UE_LOG(LogTemp,Warning,TEXT("Heal"));
-	if(MedKits > 0)
+	if(MedKits > 0 && Health < 100.f)
 	{
 		MedKits --;
 		GetWorld()->GetTimerManager().SetTimer(TerminateHandle,this,&APlayerChar::HealTerminate,6.f,false);
