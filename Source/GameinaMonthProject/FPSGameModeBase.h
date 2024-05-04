@@ -14,7 +14,14 @@ class GAMEINAMONTHPROJECT_API AFPSGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	AFPSGameModeBase();
-
+public:
+	UFUNCTION(BlueprintCallable)
+	void AddScore(int ScoreToAdd);
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	int Score;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	int Cash;
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

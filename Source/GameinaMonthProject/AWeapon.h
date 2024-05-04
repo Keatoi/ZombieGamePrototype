@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FPSGameModeBase.h"
 #include "GameFramework/Actor.h"
 #include "AWeapon.generated.h"
 UENUM(	BlueprintType)
@@ -44,7 +45,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
 	UUserWidget* InteractUI;
-
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
+	AFPSGameModeBase* GameModeRef;
 	UPROPERTY(EditAnywhere, Category = "UI")
 	TSubclassOf<UUserWidget> InteractUIClass;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")

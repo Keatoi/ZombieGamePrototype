@@ -26,7 +26,7 @@ APlayerChar::APlayerChar()
 	//Disable Shadows
 	FPSArms->bCastDynamicShadow = false;
 	FPSArms->CastShadow = false;
-	FVector ArmPos = {-20.f,0.f,-145.f};
+	FVector ArmPos = {-20.f,-15.f,-150.5f};
 	FPSArms->SetRelativeLocation(ArmPos);
 	bInvertControls = false;
 }
@@ -119,7 +119,7 @@ void APlayerChar::ADS(const FInputActionValue& Value)
 	if(bisADS)
 	{
 		UE_LOG(LogTemp,Warning,TEXT("not ADS"));
-		FVector ArmPos = {-20.f,0.f,-145.f};
+		FVector ArmPos = {-20.f,-15.f,-150.5f};
 		FRotator ArmRot = {0.f,0.f,0.f};
 		FPSArms->SetRelativeRotation(ArmRot);
 		FPSArms->SetRelativeLocation(ArmPos);
@@ -129,8 +129,8 @@ void APlayerChar::ADS(const FInputActionValue& Value)
 	{
 		UE_LOG(LogTemp,Warning,TEXT("ADS"));
 		bisADS = true;
-		FVector ArmPos = {-19.3f,-11.46f,-137.32f};
-		FRotator ArmRot = {0.f,0.f,-10.f};
+		FVector ArmPos = {-20.f,-15.f,-136.79f};
+		FRotator ArmRot = {0.f,0.f,0.f};
 		FPSArms->SetRelativeRotation(ArmRot);
 		FPSArms->SetRelativeLocation(ArmPos);
 		

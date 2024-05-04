@@ -10,6 +10,12 @@ AFPSGameModeBase::AFPSGameModeBase()
 	PlayerControllerClass = AFPSController::StaticClass();
 }
 
+void AFPSGameModeBase::AddScore(int ScoreToAdd)
+{
+	Score += ScoreToAdd;
+	Cash += ScoreToAdd;
+}
+
 void AFPSGameModeBase::BeginPlay()
 {
 	Super::BeginPlay();
