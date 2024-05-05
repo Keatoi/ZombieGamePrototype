@@ -23,7 +23,7 @@ void AAWeapon::BeginPlay()
 {
 	Super::BeginPlay();
 	GameModeRef = Cast<AFPSGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
-	
+	AmmoDisplay = AmmoReserve - MagazineAmmoMax;
 }
 
 void AAWeapon::ReloadStart()
@@ -61,7 +61,7 @@ void AAWeapon::Fire()
 			if(bDebug) UE_LOG(LogTemp, Log, TEXT("Trace hit actor: %s"), *Hit.GetActor()->GetName());
 			
 
-			if(Hit.BoneName == FName("head"))
+			if(Hit.BoneName == FName("Head") || Hit.BoneName == FName("Spine2"))
 			{
 				if(bDebug) UE_LOG(LogTemp, Log, TEXT("Trace hit Bone: %s"), *Hit.BoneName.ToString());
 				FDamageEvent DamageEvent;
@@ -70,6 +70,7 @@ void AAWeapon::Fire()
 			}
 			else
 			{
+				if(bDebug) UE_LOG(LogTemp, Log, TEXT("Trace hit Bone: %s"), *Hit.BoneName.ToString());
 				FDamageEvent DamageEvent;
 				Hit.GetActor()->TakeDamage(50.f,DamageEvent,UGameplayStatics::GetPlayerController(GetWorld(),0),this);
 				if(GameModeRef) GameModeRef->AddScore(50.f);
@@ -90,10 +91,11 @@ void AAWeapon::ReloadEnd()
 	if(MagazineAmmo != MagazineAmmoMax)
 	{
 		AmmoReserve -= MagazineAmmoMax;
+		AmmoDisplay = AmmoReserve - MagazineAmmoMax;
 		//If MagMax is less than ammo reserve set it to be the value of magazine else set the remainder of ammo reserve to fill the magazine
 		if(AmmoReserve >= MagazineAmmoMax) MagazineAmmo = MagazineAmmoMax;
 		else MagazineAmmo = AmmoReserve;
-		if(AmmoReserve < 0 )AmmoReserve = 0;
+		if(AmmoReserve < 0 )AmmoReserve = 0; AmmoDisplay = 0;
 		bCanFire = true;
 	}
 	

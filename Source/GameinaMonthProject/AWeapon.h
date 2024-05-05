@@ -66,7 +66,9 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
 	int MagazineAmmoMax = 30;//Max amount of ammo the gun can have in a mag
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
-	int AmmoReserve = 90;
+	int AmmoReserve = 120;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
+	int AmmoDisplay = AmmoReserve - MagazineAmmo;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
 	bool bIsAuto = false;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
