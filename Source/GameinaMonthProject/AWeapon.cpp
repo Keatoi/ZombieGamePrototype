@@ -23,7 +23,7 @@ void AAWeapon::BeginPlay()
 {
 	Super::BeginPlay();
 	GameModeRef = Cast<AFPSGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
-	AmmoDisplay = AmmoReserve - MagazineAmmoMax;
+	//AmmoDisplay = AmmoReserve - MagazineAmmoMax;
 }
 
 void AAWeapon::ReloadStart()
@@ -56,7 +56,7 @@ void AAWeapon::Fire()
 			DrawDebugLine(GetWorld(), TraceStart, TraceEnd, Hit.bBlockingHit ? FColor::Blue : FColor::Red, false, 5.0f, 0, 10.0f);
 			UE_LOG(LogTemp, Log, TEXT("Tracing line: %s to %s"), *TraceStart.ToCompactString(), *TraceEnd.ToCompactString());
 		}
-		if (Hit.bBlockingHit && IsValid(Hit.GetActor()))
+		if (Hit.bBlockingHit && IsValid(Hit.GetActor())&& Hit.GetActor()->ActorHasTag("AI"))
 		{
 			if(bDebug) UE_LOG(LogTemp, Log, TEXT("Trace hit actor: %s"), *Hit.GetActor()->GetName());
 			
