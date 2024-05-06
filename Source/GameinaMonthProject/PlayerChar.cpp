@@ -101,10 +101,24 @@ void APlayerChar::Look(const FInputActionValue& Value)
 void APlayerChar::Shoot(const FInputActionValue& Value)
 {
 	UE_LOG(LogTemp,Warning,TEXT("Shoot"));
-	if(PrimaryWeapon)
+	if(CurrentWeapon)
 	{
-		PrimaryWeapon->bDebug = true;
-		PrimaryWeapon->Fire();
+		CurrentWeapon->bDebug = true;
+		CurrentWeapon->Fire();
+		
+		if(CurrentWeapon->bCanFire)
+		{
+			if(FireMontage)
+			{
+				PlayAnimMontage(FireMontage,1);
+			}
+			float YawRecoil = FMath::RandRange(-0.5,0.5);
+			float PitchRecoil = FMath::RandRange(-0.5,0.5);
+			AddControllerYawInput(YawRecoil);
+			AddControllerPitchInput(PitchRecoil);
+		
+		}
+		
 	}
 }
 

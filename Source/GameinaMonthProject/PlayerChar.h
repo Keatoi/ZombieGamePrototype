@@ -87,6 +87,8 @@ public:
 	AAWeapon* PrimaryWeapon;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Values")
 	AAWeapon* BackupWeapon;
+	UPROPERTY(EditAnywhere)
+	UAnimMontage* FireMontage;
 	
 
 };
