@@ -49,40 +49,40 @@ void AFPSController::SetupInputComponent()
 void AFPSController::CallMove(const FInputActionValue& Value)
 {
 	//UE_LOG(LogTemp,Warning,TEXT("Move Called"));
-	if(PlayerPawn) PlayerPawn->Move(Value);
+	if(PlayerPawn->Health > 0.f) PlayerPawn->Move(Value);
 }
 
 void AFPSController::CallLook(const FInputActionValue& Value)
 {
 	//UE_LOG(LogTemp,Warning,TEXT("Look Called"));
-	if(PlayerPawn) PlayerPawn->Look(Value);
+	if(PlayerPawn->Health > 0.f) PlayerPawn->Look(Value);
 }
 
 void AFPSController::CallShoot(const FInputActionValue& Value)
 {
 	//UE_LOG(LogTemp,Warning,TEXT("Shoot Called"));
-	if(PlayerPawn) PlayerPawn->Shoot(Value);
+	if(PlayerPawn->Health > 0.f) PlayerPawn->Shoot(Value);
 }
 
 void AFPSController::CallInteract(const FInputActionValue& Value)
 {
-	if(PlayerPawn) PlayerPawn->Interact(Value);
+	if(PlayerPawn->Health > 0.f) PlayerPawn->Interact(Value);
 }
 
 void AFPSController::CallADS(const FInputActionValue& Value)
 {
-	if(PlayerPawn) PlayerPawn->ADS(Value);
+	if(PlayerPawn->Health > 0.f) PlayerPawn->ADS(Value);
 }
 
 void AFPSController::CallHeal(const FInputActionValue& Value)
 {
-	if(PlayerPawn) PlayerPawn->Heal(Value);
+	if(PlayerPawn->Health > 0.f) PlayerPawn->Heal(Value);
 }
 
 void AFPSController::CallJump()
 {
 	//UE_LOG(LogTemp,Warning,TEXT("Jump Called"));
-	if(PlayerPawn) PlayerPawn->bPressedJump = true;
+	if(PlayerPawn->Health > 0.f) PlayerPawn->bPressedJump = true;
 }
 
 void AFPSController::CallStopJump()
@@ -95,7 +95,7 @@ void AFPSController::CallStopJump()
 void AFPSController::CallReload()
 {
 	UE_LOG(LogTemp, Log, TEXT("Call Reload"));
-	if(PlayerPawn && PlayerPawn->PrimaryWeapon)
+	if(PlayerPawn->Health > 0.f && PlayerPawn->CurrentWeapon)
 	{
 		PlayerPawn->PrimaryWeapon->ReloadStart();
 	}

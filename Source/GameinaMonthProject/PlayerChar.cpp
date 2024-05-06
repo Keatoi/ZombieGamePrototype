@@ -55,6 +55,7 @@ void APlayerChar::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 void APlayerChar::Move(const FInputActionValue& Value)
 {
 	//UE_LOG(LogTemp,Warning,TEXT("Move"));
+	
 	const FVector2D MoveValue = Value.Get<FVector2D>();
 	const FRotator MovementRotation(0, Controller->GetControlRotation().Yaw, 0);
 	
