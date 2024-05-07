@@ -28,7 +28,7 @@ void AAWeapon::BeginPlay()
 
 void AAWeapon::ReloadStart()
 {
-	UE_LOG(LogTemp, Log, TEXT("ReloadStart"));
+	//UE_LOG(LogTemp, Log, TEXT("ReloadStart"));
 	if(MagazineAmmo != MagazineAmmoMax)
 	{
 		bCanFire = false;
@@ -92,10 +92,12 @@ void AAWeapon::ReloadEnd()
 	{
 		AmmoReserve -= MagazineAmmoMax;
 		AmmoDisplay = AmmoReserve - MagazineAmmoMax;
+		if(AmmoDisplay < 0) AmmoDisplay = 0;
 		//If MagMax is less than ammo reserve set it to be the value of magazine else set the remainder of ammo reserve to fill the magazine
 		if(AmmoReserve >= MagazineAmmoMax) MagazineAmmo = MagazineAmmoMax;
 		else MagazineAmmo = AmmoReserve;
-		if(AmmoReserve < 0 )AmmoReserve = 0; AmmoDisplay = 0;
+		if(AmmoReserve < 0 )AmmoReserve = 0;
+		if(bDebug) UE_LOG(LogTemp, Log, TEXT("MagAmmo: %d"), MagazineAmmo);UE_LOG(LogTemp, Log, TEXT("Reserve Ammo: %d"),AmmoReserve)
 		bCanFire = true;
 	}
 	
