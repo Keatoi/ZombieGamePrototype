@@ -106,7 +106,7 @@ void AFPSController::CallStopShooting()
 {
 	if(PlayerPawn->Health > 0.f && PlayerPawn->CurrentWeapon)
 	{
-		PlayerPawn->CurrentWeapon->ReloadEnd();
+		PlayerPawn->CurrentWeapon->FireEnd();
 	}
 }
 

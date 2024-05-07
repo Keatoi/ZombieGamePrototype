@@ -86,7 +86,7 @@ void AAWeapon::Fire()
 	}
 	else if(MagazineAmmo > 0 && bCanFire && bIsAuto)
 	{
-		GetWorld()->GetTimerManager().SetTimer(AutoTimer,this,&AAWeapon::AutoFire,FireRate,true);
+		GetWorld()->GetTimerManager().SetTimer(AutoTimer,this,&AAWeapon::AutoFire,FireRate,true,0.001f);
 	}
 	else if(SB_Empty)UGameplayStatics::PlaySoundAtLocation(this,SB_Empty,GetActorLocation());
 }
