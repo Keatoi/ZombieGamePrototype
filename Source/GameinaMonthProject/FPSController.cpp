@@ -97,7 +97,7 @@ void AFPSController::CallReload()
 	UE_LOG(LogTemp, Log, TEXT("Call Reload"));
 	if(PlayerPawn->Health > 0.f && PlayerPawn->CurrentWeapon)
 	{
-		PlayerPawn->PrimaryWeapon->ReloadStart();
+		PlayerPawn->CurrentWeapon->ReloadStart();
 	}
 }
 
