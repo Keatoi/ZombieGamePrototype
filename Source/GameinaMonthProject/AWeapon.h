@@ -34,12 +34,17 @@ public:
 	void ReloadStart();
 	UFUNCTION()
 	void Fire();
+	UFUNCTION()
+	void FireEnd();
+	UFUNCTION()
+	void ReloadEnd();
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
+	
 	UFUNCTION()
-	void ReloadEnd();
+	void AutoFire();
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -60,6 +65,8 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
 	float ReloadTime = 3.f;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
+	float FireRate = 0.3f;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
 	float RemainingTime;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
 	int MagazineAmmo = 30;
@@ -79,6 +86,8 @@ public:
 	TEnumAsByte<ECollisionChannel> TraceChannelProperty = ECC_Pawn;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
 	FTimerHandle ReloadTimer;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
+	FTimerHandle AutoTimer;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	TEnumAsByte<EEquippedWeapon> WeaponType;
 

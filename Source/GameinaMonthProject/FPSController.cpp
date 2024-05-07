@@ -36,6 +36,7 @@ void AFPSController::SetupInputComponent()
 		Input->BindAction(InputMove,ETriggerEvent::Triggered,this,&AFPSController::CallMove);
 		Input->BindAction(InputLook,ETriggerEvent::Triggered,this,&AFPSController::CallLook);
 		Input->BindAction(InputShoot,ETriggerEvent::Started,this,&AFPSController::CallShoot);
+		Input->BindAction(InputShoot,ETriggerEvent::Completed,this,&AFPSController::CallStopShooting);
 		Input->BindAction(InputJump,ETriggerEvent::Started,this,&AFPSController::CallJump);
 		Input->BindAction(InputJump,ETriggerEvent::Completed,this,&AFPSController::CallStopJump);
 		Input->BindAction(InputInteract,ETriggerEvent::Started,this,&AFPSController::CallInteract);
@@ -98,6 +99,14 @@ void AFPSController::CallReload()
 	if(PlayerPawn->Health > 0.f && PlayerPawn->CurrentWeapon)
 	{
 		PlayerPawn->CurrentWeapon->ReloadStart();
+	}
+}
+
+void AFPSController::CallStopShooting()
+{
+	if(PlayerPawn->Health > 0.f && PlayerPawn->CurrentWeapon)
+	{
+		PlayerPawn->CurrentWeapon->ReloadEnd();
 	}
 }
 
