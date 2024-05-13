@@ -112,8 +112,8 @@ void APlayerChar::Shoot(const FInputActionValue& Value)
 			{
 				PlayAnimMontage(FireMontage,1);
 			}
-			float YawRecoil = FMath::RandRange(-0.5,0.5);
-			float PitchRecoil = FMath::RandRange(-0.5,0.5);
+			float YawRecoil = FMath::RandRange(-0.2,0.1);
+			float PitchRecoil = FMath::RandRange(-0.2,0.1);
 			AddControllerYawInput(YawRecoil);
 			AddControllerPitchInput(PitchRecoil);
 		

@@ -67,14 +67,14 @@ void AAWeapon::Fire()
 			{
 				if(bDebug) UE_LOG(LogTemp, Log, TEXT("Trace hit Bone: %s"), *Hit.BoneName.ToString());
 				FDamageEvent DamageEvent;
-				Hit.GetActor()->TakeDamage(150.f,DamageEvent,UGameplayStatics::GetPlayerController(GetWorld(),0),this);
+				Hit.GetActor()->TakeDamage((BaseDamage * 3.f),DamageEvent,UGameplayStatics::GetPlayerController(GetWorld(),0),this);
 				if(GameModeRef) GameModeRef->AddScore(100.f);
 			}
 			else
 			{
-				if(bDebug) UE_LOG(LogTemp, Log, TEXT("Trace hit Bone: %s"), *Hit.BoneName.ToString());
+				if(bDebug) UE_LOG(LogTemp, Log, TEXT("Trace hit : %s"), *Hit.GetActor()->GetName());
 				FDamageEvent DamageEvent;
-				Hit.GetActor()->TakeDamage(50.f,DamageEvent,UGameplayStatics::GetPlayerController(GetWorld(),0),this);
+				Hit.GetActor()->TakeDamage(BaseDamage,DamageEvent,UGameplayStatics::GetPlayerController(GetWorld(),0),this);
 				if(GameModeRef) GameModeRef->AddScore(50.f);
 			}
 		}
