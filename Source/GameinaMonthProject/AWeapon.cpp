@@ -2,9 +2,8 @@
 
 
 #include "AWeapon.h"
+#include "Particles/ParticleSystemComponent.h"
 
-#include "InputBehavior.h"
-#include "LocalizationDescriptor.h"
 #include "Engine/DamageEvents.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -52,7 +51,11 @@ void AAWeapon::Fire()
 		QueryParams.AddIgnoredActor(this);
 		GetWorld()->LineTraceSingleByChannel(Hit,TraceStart,TraceEnd,TraceChannelProperty,QueryParams);
 		
-		
+		if (MuzzleSystem)
+		{
+			FVector Scale = {0.1f,0.1f,0.1f};
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),MuzzleSystem,TraceStart,FRotator::ZeroRotator,Scale);
+		}
 		if(bDebug)
 		{
 			DrawDebugLine(GetWorld(), TraceStart, TraceEnd, Hit.bBlockingHit ? FColor::Blue : FColor::Red, false, 5.0f, 0, 10.0f);
@@ -125,7 +128,11 @@ void AAWeapon::AutoFire()
 		FCollisionQueryParams QueryParams;
 		QueryParams.AddIgnoredActor(this);
 		GetWorld()->LineTraceSingleByChannel(Hit,TraceStart,TraceEnd,TraceChannelProperty,QueryParams);
-		
+		if (MuzzleSystem)
+		{
+			FVector Scale = {0.1f,0.1f,0.1f};
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),MuzzleSystem,TraceStart,FRotator::ZeroRotator,Scale);
+		}
 		
 		if(bDebug)
 		{

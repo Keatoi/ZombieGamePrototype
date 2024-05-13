@@ -30,6 +30,8 @@ public:
 	USoundBase* SB_Empty;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Sounds")
 	USoundBase* SB_Reload;
+	UPROPERTY(EditDefaultsOnly, Category = "Effects and Spawners")
+	class UParticleSystem* MuzzleSystem;
 	UFUNCTION()
 	void ReloadStart();
 	UFUNCTION()
@@ -81,7 +83,7 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
 	bool bCanFire = true;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
-	bool bDebug = true;
+	bool bDebug = false;
 	UPROPERTY(EditAnywhere, Category="Collision")
 	TEnumAsByte<ECollisionChannel> TraceChannelProperty = ECC_Pawn;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Weapon Varaibles")
